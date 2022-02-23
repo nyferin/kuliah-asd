@@ -36,7 +36,7 @@ void printArray(int a[], int n) {
 int main(void) {
   int n;
 
-  printf("INSERTION SORT ASCENDING\n\n");
+  printf("INSERTION SORT ASCENDING & DESCENDING\n\n");
   
   printf("Masukkan jumlah data yang ingin dimasukkan: ");
   scanf("%d", &n);
