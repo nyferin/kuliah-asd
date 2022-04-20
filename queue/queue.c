@@ -1,134 +1,139 @@
 #include <stdio.h>
 #define MAX 3
 
-typedef struct {
+typedef struct
+{
     int data[MAX];
     int head;
     int tail;
-} queue;
+} Queue;
 
-queue Que;
+Queue antrian;
 
-void begin() {
-    Que.head = Que.tail = -1;
+void Awal()
+{
+    antrian.head = antrian.tail = -1;
 }
 
-int empty() {
-    if(Que.head == -1) {
+int Kosong()
+{
+    if (antrian.tail == -1)
+    {
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
 
-int full() {
-    if(Que.tail == MAX-1) {
+int Penuh()
+{
+    if (antrian.tail == MAX - 1)
+    {
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
 
-int enqueue(int d) {
-    if(empty() == 1) {
-        Que.head = Que.tail = 0;
-
-        Que.data[Que.tail] = d;
-
-        printf("%d queued.\n", Que.data[Que.tail]);
-
-        void printque();
+int Enqueue(int data)
+{
+    if (Kosong() == 1)
+    {
+        antrian.head = antrian.tail = 0;
+        antrian.data[antrian.tail] = data;
+        printf("%d masuk!\n", antrian.data[antrian.tail]);
+        void Tampil();
         {
-            if(empty() == 0) {
-                for( int i = Que.head; i <= Que.tail;i++) {
-                    printf("%d\t", Que.data[i]);
+            if (Kosong() == 0)
+            {
+                for (int i = antrian.head; i < antrian.tail; i++)
+                {
+                    printf("%d ", antrian.data[i]);
                 }
-            } else {
-                printf("Queue empty");
+            }
+            else
+            {
+                printf("Isi antrian kosong!");
             }
         }
-    } else if (full() == 0) {
-        Que.tail++;
-        Que.data[Que.tail]=d;
-        printf("%d queued.\n", Que.data[Que.tail]);
+    }
+    else if (Penuh() == 0)
+    {
+        antrian.tail++;
+        antrian.data[antrian.tail] = data;
+        printf("%d masuk!\n", antrian.data[antrian.tail]);
     }
 }
 
-int dequeue() {
-    int queued = Que.data[Que.head];
+int Dequeue()
+{
+    int antri = antrian.data[antrian.head];
+    for (int i = antrian.head; i < antrian.tail; i++)
+    {
+        antrian.data[i] = antrian.data[+1];
+    }
+    antrian.tail--;
+    return antri;
+}
 
-    if(empty() == 0) {
-        for(int i = Que.head; i <= Que.tail; i++) {
-            Que.data[i] = Que.data[i+1];
+void Tampil()
+{
+    if (Kosong() == 0)
+    {
+        for (int i = antrian.head; i <= antrian.tail; i++)
+        {
+            printf("%d ", antrian.data[i]);
         }
-        Que.tail--;
-        return queued;
-
-    } else {
-        printf("Queue empty\n");
-        return 0;
     }
-}
- /*
-void printd() {
-    if(empty() == 0) {
-        for(int i = Que.head; i <= Que.tail; i++) {
-            printf("%d\t", &Que.data[i]);
-        }
-    } else {
-        printf("No queued data\n");
-    }
-}
-*/
-
-void printd() {
-    if(empty() == 0) {
-        printf("Print queued data: ");
-        for(int i = Que.tail; i >= Que.head; i--) {
-            printf("%d\t", Que.data[i]);
-        }
-        printf("\n\n");
-    } else {
-        printf("No queued data\n\n");
+    else
+    {
+        printf("Tidak ada data dalam antrian!");
     }
 }
 
-void delete() {
-    begin();
+void Clear()
+{
+    antrian.head = antrian.tail = -1;
+    printf("Data sudah dibersihkan!");
 }
 
-int main(void) {
+void main()
+{
     int choice, data;
-    begin();
+    Awal();
+    do
+    {
+        printf("\n");
+        printf("1. Enqueue\n"); // masuk satu data
+        printf("2. Dequeue\n"); // keluar satu data
+        printf("3. Lihat isi antrian\n");
+        printf("4. Hapus isi antrian\n");
+        printf("5. Exit\n");
+        printf("Pilihan anda? ");
+        scanf("%d", &choice);
 
-    do {
-    printf("[1] Enqueue 1 data\n");
-    printf("[2] Dequeue 1 data\n");
-    printf("[3] Print queued data(s)\n");
-    printf("[4] Delete queue data(s)\n");
-    printf("[5] EXIT\n");
-    printf("[*] Input your choide: ");
-    scanf("%d", &choice);
-
-    switch(choice) {
+        switch (choice)
+        {
         case 1:
-            printf("Input data: ");
+            printf("Data = ");
             scanf("%d", &data);
-            enqueue(data);
-        break;
+            Enqueue(data);
+            break;
         case 2:
-            printf("Dequeued data: %d\n\n", dequeue());
-        break;
+            printf("Data yang keluar: %d", Dequeue());
+            break;
         case 3:
-            printd();
-        break;
+            Tampil();
+            break;
         case 4:
-            delete();
-            printf("Queued data cleared\n\n");
-        break;
-
-    }
-    } while(choice != 5);
-
-    return 0;
+            Clear();
+            break;
+        default:
+            break;
+        }
+    } while (choice != 5);
 }
