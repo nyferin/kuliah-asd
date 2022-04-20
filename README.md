@@ -7,3 +7,4 @@ Repo berisi tugas dan materi kuliah ASD.
  4. [Linked List](https://github.com/nyferin/kuliah_asd/tree/main/linkedList)
  5. [Stack](https://github.com/nyferin/kuliah_asd/tree/main/stack)
  6. [Queue](https://github.com/nyferin/kuliah_asd/tree/main/queue)
+ 7. [Tree](https://github.com/nyferin/kuliah_asd/tree/main/tree)
